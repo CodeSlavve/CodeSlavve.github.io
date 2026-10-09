@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Phishing Website Detection — Yash Verma</title>
-  <meta name="description" content="A web application that analyzes website URLs and flags likely phishing sites using features from the URL and host.">
+  <meta name="description" content="A Flask application that extracts URL and hostname signals to classify websites as legitimate or phishing, with Random Forest, Logistic Regression, and SVM models.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Phishing Website Detection — Yash Verma">
-  <meta property="og:description" content="A web application that analyzes website URLs and flags likely phishing sites.">
+  <meta property="og:description" content="A Flask application that classifies URLs as legitimate or phishing using engineered URL and hostname features.">
   <meta property="og:url" content="https://YOUR-DOMAIN.example/projects/phishing-website-detection.html">
   <link rel="canonical" href="https://YOUR-DOMAIN.example/projects/phishing-website-detection.html">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -50,7 +50,7 @@
     <a class="back-link" href="/projects/">Back to projects</a>
     <header class="project-header">
       <h1>Phishing Website Detection</h1>
-      <p class="project-deck">A web application that analyzes website URLs and flags likely phishing sites.</p>
+      <p class="project-deck">A Flask application that uses URL and hostname features to classify a site as legitimate or phishing.</p>
     </header>
     <figure class="project-figure">
       <img src="/assets/project-placeholder.svg" alt="Placeholder graphic for Phishing Website Detection; replace with a project screenshot or diagram.">
@@ -59,29 +59,32 @@
     <div class="project-prose">
       <section id="overview">
         <h2>Overview</h2>
-        <p>This project analyzes website URLs and flags likely phishing sites.</p>
+        <p>The application accepts a URL and returns a classification, confidence, extracted URL features, and warning flags. The current API returns either <em>Legitimate</em> or <em>Phishing</em>; although the repository README mentions a “suspicious” class, the API's label map contains two classes.</p>
+        <p>For domains on its trusted-domain whitelist, the application returns a legitimate result without running the classifier.</p>
       </section>
       <section id="problem">
         <h2>The problem</h2>
-        <p>Determine whether a website URL is likely to be a phishing site.</p>
+        <p>Phishing URLs can use misleading hostnames, brand names, redirects, and URL structures. This project classifies a submitted URL using signals available in the URL and hostname, without fetching or inspecting the website's page content.</p>
       </section>
       <section id="how-it-works">
         <h2>How it works</h2>
-        <p>It extracts features from the URL and host, including entropy, suspicious terms, and mismatches between a brand name and its domain.</p>
-        <p>TODO — add details about the model and request flow.</p>
+        <p>The feature extractor derives 35 values from the URL and hostname. These include URL length and structure, HTTPS and redirect signals, suspicious keywords and top-level domains, entropy, subdomain and path depth, URL shorteners, and brand-name/domain mismatches.</p>
+        <p>The API normalizes URLs without a scheme by adding <code>http://</code>, checks the trusted-domain whitelist, then scales the extracted features and runs the selected saved model. Random Forest is the default; Logistic Regression and SVM are also available.</p>
+        <p><code>POST /predict</code> returns a result from one model, while <code>POST /compare</code> returns results from all three. Predictions include a confidence value and, when available, a phishing probability; the single-model response also includes extracted features and warning flags.</p>
       </section>
       <section id="stack">
         <h2>Stack</h2>
-        <p>Python, Flask, pandas, and scikit-learn.</p>
+        <p>Python, Flask, pandas, NumPy, scikit-learn, and joblib. The repository includes notebooks for feature extraction and model training, and the web application is deployed on Vercel.</p>
       </section>
       <section id="what-i-built">
         <h2>What I built</h2>
-        <p>A website URL analysis project that identifies likely phishing sites.</p>
-        <p>TODO — add details about the parts you implemented.</p>
+        <p>The repository contains the URL feature extraction pipeline, saved feature scaler and classification models, a Flask inference API, and a browser interface for checking URLs and comparing model outputs.</p>
+        <p>The interface presents the predicted label, confidence, warning flags, and extracted URL signals so the result includes the factors the application detected.</p>
       </section>
       <section id="challenges">
         <h2>Challenges and what I learned</h2>
-        <p>TODO — add a specific challenge and what you learned from it.</p>
+        <p>The model depends on the feature extractor, scaler, and saved models using the same feature definitions and order at training and prediction time. The application also bypasses model inference for whitelisted domains, so those results follow a separate rule.</p>
+        <p>The repository's README describes three possible labels, while the current API maps predictions to only <em>Legitimate</em> and <em>Phishing</em>. The project description reflects the behavior of the API code.</p>
       </section>
       <section id="links">
         <h2>Links</h2>
