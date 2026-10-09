@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CFPB Complaint Classifier: Live Demo — Yash Verma</title>
+  <meta name="description" content="Try the live CFPB Complaint Classifier demo with invented sample complaints.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CFPB Complaint Classifier: Live Demo — Yash Verma">
+  <meta property="og:description" content="Submit a complaint narrative to the live CFPB Complaint Classifier.">
+  <meta property="og:url" content="https://YOUR-DOMAIN.example/projects/cfpb-complaint-classifier-demo.html">
+  <link rel="canonical" href="https://YOUR-DOMAIN.example/projects/cfpb-complaint-classifier-demo.html">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    (() => {
+      let theme = null;
+      try {
+        theme = localStorage.getItem("theme");
+      } catch (error) {
+        theme = null;
+      }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/cfpb-demo.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Yash Verma, home">Yash Verma</a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">Dark</button>
+        <a class="button button-primary header-resume" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Resume</a>
+      </div>
+    </div>
+  </header>
+  <div class="site-layout">
+    <aside class="site-sidebar" aria-label="Page navigation">
+      <button class="sidebar-toggle" type="button" aria-label="Toggle page navigation" aria-expanded="false" aria-controls="sidebar-content" hidden>Navigation</button>
+      <div class="sidebar-content" id="sidebar-content">
+        <noscript><nav class="noscript-sidebar" aria-label="Page sections"><a href="#try-it">Try it</a><a href="#about-demo">About this demo</a></nav></noscript>
+      </div>
+    </aside>
+    <main id="main" class="page-shell project-page">
+      <a class="back-link" href="/projects/cfpb-complaint-classifier.html">Back to project</a>
+      <header class="project-header">
+        <h1>CFPB Complaint Classifier: live demo</h1>
+        <p class="project-deck">Enter a complaint narrative to see the model's predicted CFPB product category.</p>
+      </header>
+      <div class="project-prose">
+        <section id="try-it">
+          <h2>Try it</h2>
+          <p class="demo-privacy">Do not enter personal or sensitive information. Text is sent to a server for prediction. This site does not store it.</p>
+          <p>These invented examples are not real CFPB records.</p>
+          <div class="demo-examples" aria-label="Invented example complaints">
+            <button class="button button-secondary" type="button" data-example="I found a charge on my credit card statement that I did not make, and the card company has not resolved my dispute.">Example 1</button>
+            <button class="button button-secondary" type="button" data-example="My mortgage payment was received, but the account still shows it as overdue and added a late fee.">Example 2</button>
+            <button class="button button-secondary" type="button" data-example="I sent money through a transfer service, but the recipient never received it and the transfer has not been refunded.">Example 3</button>
+          </div>
+          <p class="demo-status" id="demo-status" role="status" aria-live="polite"></p>
+          <form class="demo-form" id="demo-form" novalidate>
+            <h3 class="demo-form-heading">Single complaint</h3>
+            <p>Enter one complaint only. The text limit is 2,000 characters.</p>
+            <label class="demo-label" for="complaint-text">Complaint text</label>
+            <textarea class="demo-textarea" id="complaint-text" name="complaint" maxlength="2000"></textarea>
+            <p class="demo-counter" id="character-count" aria-live="off">2000 characters remaining</p>
+            <button class="button button-primary" id="classify-button" type="submit">Classify single complaint</button>
+          </form>
+          <div class="demo-result" id="demo-result" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">Enter a complaint or choose an invented example to begin.</div>
+          <div class="demo-batch">
+            <h3 class="demo-form-heading">Batch prediction</h3>
+            <p>Enter one complaint per line. Blank lines are ignored. Each complaint can be up to 2,000 characters; up to 600 complaints can be submitted at once.</p>
+            <form class="demo-form" id="batch-form" novalidate>
+              <label class="demo-label" for="batch-complaints">Complaints, one per line</label>
+              <textarea class="demo-textarea" id="batch-complaints" name="complaints" aria-describedby="batch-count" spellcheck="true"></textarea>
+              <p class="demo-counter" id="batch-count" aria-live="off">0 complaints</p>
+              <p class="demo-status" id="batch-status" role="status" aria-live="polite"></p>
+              <button class="button button-primary" id="batch-button" type="submit">Classify batch</button>
+            </form>
+            <div class="demo-result" id="batch-result" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">Enter complaints above, one per line, to classify a batch.</div>
+          </div>
+        </section>
+        <section id="about-demo">
+          <h2>About this demo</h2>
+          <p>The model uses XGBoost over TF-IDF features to predict one of eight CFPB product categories. It runs as a Docker container on Render.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="footer-name" href="/">Yash Verma</a>
+      <a href="#top">Back to top</a>
+      <a href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Download resume (PDF)</a>
+    </div>
+  </footer>
+</body>
+</html>

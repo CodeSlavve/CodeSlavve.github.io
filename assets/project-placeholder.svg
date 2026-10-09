@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 320" role="img" aria-labelledby="title desc">
+  <title id="title">Project image placeholder</title>
+  <desc id="desc">A simple pixel-grid frame to replace with a project screenshot or diagram.</desc>
+  <rect width="700" height="320" fill="#eef2f5"/>
+  <path d="M24 24h16v16H24zm32 0h16v16H56zm32 0h16v16H88zm512 0h16v16h-16zm32 0h16v16h-16zm32 0h16v16h-16zM24 280h16v16H24zm32 0h16v16H56zm32 0h16v16H88zm512 0h16v16h-16zm32 0h16v16h-16zm32 0h16v16h-16z" fill="#2949d8"/>
+  <path d="M152 84h32v32h-32zm32 32h32v32h-32zm32 32h32v32h-32zm32-32h32v32h-32zm32-32h32v32h-32zm80 48h32v32h-32zm32-32h32v32h-32zm32 32h32v32h-32zm32 32h32v32h-32z" fill="#2949d8"/>
+  <path d="M144 224h412" stroke="#bdc8d2" stroke-width="2"/>
+  <path d="M144 240h236" stroke="#bdc8d2" stroke-width="2"/>
+</svg>

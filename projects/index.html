@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Yash Verma</title>
+  <meta name="description" content="Machine learning and software projects by Yash Verma, including a complaint classifier and phishing website detection.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Projects — Yash Verma">
+  <meta property="og:description" content="Machine learning and software projects by Yash Verma.">
+  <meta property="og:url" content="https://YOUR-DOMAIN.example/projects/">
+  <link rel="canonical" href="https://YOUR-DOMAIN.example/projects/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    (() => {
+      let theme = null;
+      try {
+        theme = localStorage.getItem("theme");
+      } catch (error) {
+        theme = null;
+      }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <script src="/js/main.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Yash Verma, home">Yash Verma</a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">Dark</button>
+        <a class="button button-primary header-resume" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Resume</a>
+      </div>
+    </div>
+  </header>
+  <div class="site-layout">
+    <aside class="site-sidebar" aria-label="Page navigation">
+      <button class="sidebar-toggle" type="button" aria-label="Toggle page navigation" aria-expanded="false" aria-controls="sidebar-content" hidden>Navigation</button>
+      <div class="sidebar-content" id="sidebar-content">
+        <noscript><nav class="noscript-sidebar" aria-label="Page sections"><a href="#projects">Projects</a></nav></noscript>
+      </div>
+    </aside>
+  <main id="main" class="page-shell">
+    <section class="content-section listing-intro" aria-labelledby="page-title">
+      <p class="eyebrow"><a href="/">Home</a> / Projects</p>
+      <h1 id="page-title">Projects</h1>
+      <p>A selection of machine learning and software projects.</p>
+    </section>
+    <section class="content-section" id="projects" aria-label="Project list">
+      <div class="project-list">
+        <article class="project-entry">
+          <h2><a href="/projects/cfpb-complaint-classifier.html">CFPB Complaint Classifier</a></h2>
+          <p class="project-summary">Classifies CFPB complaint narratives into eight product categories using a balanced 50,000-complaint sample.</p>
+          <p class="project-stack">Python, TF-IDF, XGBoost, FastAPI, Docker, DVC, and MLflow.</p>
+          <div class="project-links">
+            <a href="/projects/cfpb-complaint-classifier.html">Read the details</a>
+            <a href="https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier" target="_blank" rel="noreferrer">Repository</a>
+            <a href="https://supportticket-complaintclassifier.onrender.com" target="_blank" rel="noreferrer">Live API</a>
+          </div>
+        </article>
+        <article class="project-entry">
+          <h2><a href="/projects/phishing-website-detection.html">Phishing Website Detection</a></h2>
+          <p class="project-summary">Analyzes website URLs and flags likely phishing sites.</p>
+          <p class="project-stack">Python, Flask, pandas, and scikit-learn.</p>
+          <div class="project-links">
+            <a href="/projects/phishing-website-detection.html">Read the details</a>
+            <a href="https://github.com/Atharvsurya/PhishingWebsiteDetection" target="_blank" rel="noreferrer">Repository</a>
+            <a href="https://phishguard-pearl.vercel.app" target="_blank" rel="noreferrer">Live site</a>
+          </div>
+        </article>
+        <article class="project-entry">
+          <h2><a href="/projects/machine-learning-projects.html">Machine learning projects</a></h2>
+          <p class="project-summary">A repository of smaller machine learning projects.</p>
+          <p class="project-stack">TODO — add the projects and their tools.</p>
+          <div class="project-links">
+            <a href="/projects/machine-learning-projects.html">Read the details</a>
+            <a href="https://github.com/CodeSlavve/mlprojects" target="_blank" rel="noreferrer">Repository</a>
+          </div>
+        </article>
+        <article class="project-entry">
+          <h2><a href="/projects/samadhan-setu.html">Samadhan Setu</a></h2>
+          <p class="project-summary">A Smart India Hackathon project where I built the AI layer of the system.</p>
+          <p class="project-stack">TODO — add the project stack.</p>
+          <div class="project-links">
+            <a href="/projects/samadhan-setu.html">Read the details</a>
+            <span>Repository: TODO — add link if available</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="footer-name" href="/">Yash Verma</a>
+      <a href="#top">Back to top</a>
+      <a href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Download resume (PDF)</a>
+    </div>
+  </footer>
+</body>
+</html>

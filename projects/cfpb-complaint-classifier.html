@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CFPB Complaint Classifier — Yash Verma</title>
+  <meta name="description" content="An end-to-end MLOps project that classifies consumer complaint narratives into eight CFPB product categories.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CFPB Complaint Classifier — Yash Verma">
+  <meta property="og:description" content="An end-to-end MLOps project for classifying consumer complaint narratives into eight CFPB product categories.">
+  <meta property="og:url" content="https://YOUR-DOMAIN.example/projects/cfpb-complaint-classifier.html">
+  <link rel="canonical" href="https://YOUR-DOMAIN.example/projects/cfpb-complaint-classifier.html">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    (() => {
+      let theme = null;
+      try {
+        theme = localStorage.getItem("theme");
+      } catch (error) {
+        theme = null;
+      }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <script src="/js/main.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Yash Verma, home">Yash Verma</a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">Dark</button>
+        <a class="button button-primary header-resume" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Resume</a>
+      </div>
+    </div>
+  </header>
+  <div class="site-layout">
+  <aside class="site-sidebar" aria-label="Page navigation">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle page navigation" aria-expanded="false" aria-controls="sidebar-content" hidden>Navigation</button>
+    <div class="sidebar-content" id="sidebar-content">
+      <noscript><nav class="noscript-sidebar" aria-label="Page sections"><a href="#overview">Overview</a><a href="#problem">The problem</a><a href="#how-it-works">How it works</a><a href="#stack">Stack</a><a href="#what-i-built">What I built</a><a href="#challenges">Challenges and what I learned</a><a href="#links">Links</a></nav></noscript>
+    </div>
+  </aside>
+  <main id="main" class="page-shell project-page">
+    <a class="back-link" href="/projects/">Back to projects</a>
+    <header class="project-header">
+      <h1>CFPB Complaint Classifier</h1>
+      <p class="project-deck">An end-to-end NLP system that predicts one of eight CFPB product categories from a consumer complaint narrative.</p>
+    </header>
+    <figure class="project-figure">
+      <img src="/assets/project-placeholder.svg" alt="Placeholder graphic for the CFPB Complaint Classifier; replace with a project screenshot or diagram.">
+      <figcaption>TODO — replace this placeholder with a project screenshot or diagram.</figcaption>
+    </figure>
+    <p class="demo-cta"><a class="button button-secondary" href="/projects/cfpb-complaint-classifier-demo.html">Try the live demo</a></p>
+    <div class="project-prose">
+      <section id="overview">
+        <h2>Overview</h2>
+        <p>The project uses a balanced sample of 50,000 CFPB complaints, with 6,250 examples in each of eight selected product categories. Its production classifier is served by a deployed FastAPI service.</p>
+        <p>The data is split into 35,000 training, 7,500 validation, and 7,500 test complaints. The test set is held out until final evaluation.</p>
+        <ul>
+          <li>Checking or savings account</li>
+          <li>Credit card</li>
+          <li>Credit reporting or other personal consumer reports</li>
+          <li>Debt collection</li>
+          <li>Money transfer, virtual currency, or money service</li>
+          <li>Mortgage</li>
+          <li>Payday loan, title loan, personal loan, or advance loan</li>
+          <li>Vehicle loan or lease</li>
+        </ul>
+      </section>
+      <section id="problem">
+        <h2>The problem</h2>
+        <p>Consumer financial complaint narratives contain information about the product involved, but categorizing large volumes manually can take time. This project treats categorization as an eight-class text classification task: given a cleaned complaint narrative, predict one of the eight selected CFPB product categories.</p>
+      </section>
+      <section id="how-it-works">
+        <h2>How it works</h2>
+        <p>After filtering the selected categories and removing complaints without usable narratives, the modeling data uses cleaned complaint text and product labels. TF-IDF represents each narrative with up to 20,000 features, using unigrams and bigrams with a minimum document frequency of five.</p>
+        <p>Logistic Regression and XGBoost were evaluated with the same TF-IDF representation, and DistilBERT was fine-tuned as a transformer comparison. XGBoost was selected for production based on the performance and resource tradeoff, although DistilBERT had the higher validation Macro F1.</p>
+        <p>On the held-out test set, the final XGBoost model achieved 83.23% accuracy and 83.26% Macro F1. On the validation set, its Macro F1 was 83.35%; DistilBERT scored 85.09% but used 703.36 MB RAM in the recorded comparison, versus 88.77 MB for XGBoost.</p>
+        <p>The API provides health checking, single predictions, and batch predictions. A prediction returns a category and confidence score. The batch endpoint accepts up to 600 items.</p>
+      </section>
+      <section id="stack">
+        <h2>Stack</h2>
+        <p>Python, pandas, NumPy, scikit-learn, XGBoost, DistilBERT, FastAPI, Pydantic, Uvicorn, Docker, DVC, MLflow, GitHub Actions, GitHub Container Registry, and Render.</p>
+      </section>
+      <section id="what-i-built">
+        <h2>What I built</h2>
+        <p>The documented workflow covers CFPB sample preparation, model experiments and comparison, error analysis, experiment tracking, and dataset and model versioning. The production TF-IDF and XGBoost pipeline is exposed through a FastAPI service, packaged in Docker, and deployed on Render.</p>
+        <p>GitHub Actions runs tests and linting, then builds and publishes the container image to GitHub Container Registry for deployment.</p>
+      </section>
+      <section id="challenges">
+        <h2>Challenges and what I learned</h2>
+        <p>Model selection involved balancing validation performance against deployment resource use: DistilBERT had a higher validation Macro F1, while XGBoost was substantially smaller and used less RAM in the recorded comparison.</p>
+        <p>Error analysis found that short complaints were harder to classify: the reported error rate was 31.12% for narratives of 1–25 characters, compared with 10.71% for narratives over 500 characters. The largest reported validation confusion was between checking or savings account and money transfer complaints.</p>
+        <p>The model is limited to its eight trained categories; its confidence score is not a guarantee of correctness, and it is not intended to replace human review or make financial or legal decisions.</p>
+      </section>
+      <section id="links">
+        <h2>Links</h2>
+        <ul class="plain-link-list">
+          <li><a href="/projects/cfpb-complaint-classifier-demo.html">Try the live demo</a></li>
+          <li><a href="https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier" target="_blank" rel="noreferrer">Repository</a></li>
+          <li><a href="https://supportticket-complaintclassifier.onrender.com" target="_blank" rel="noreferrer">Live API</a></li>
+          <li><a href="https://supportticket-complaintclassifier.onrender.com/docs" target="_blank" rel="noreferrer">Interactive API documentation</a></li>
+          <li><a href="https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier/blob/main/docs/MODEL_CARD.md" target="_blank" rel="noreferrer">Model card</a></li>
+          <li><a href="https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier/blob/main/docs/project_writeup.md" target="_blank" rel="noreferrer">Project write-up</a></li>
+        </ul>
+      </section>
+    </div>
+    <nav class="project-pagination" aria-label="Project pagination">
+      <a href="/projects/samadhan-setu.html"><span>Previous project</span>Samadhan Setu</a>
+      <a href="/projects/phishing-website-detection.html"><span>Next project</span>Phishing Website Detection</a>
+    </nav>
+  </main>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="footer-name" href="/">Yash Verma</a>
+      <a href="#top">Back to top</a>
+      <a href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Download resume (PDF)</a>
+    </div>
+  </footer>
+</body>
+</html>
