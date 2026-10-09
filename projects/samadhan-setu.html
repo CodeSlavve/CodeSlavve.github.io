@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Samadhan Setu — Yash Verma</title>
-  <meta name="description" content="A Smart India Hackathon project where Yash Verma built the AI layer of the system.">
+  <meta name="description" content="An SIH 2026 civic innovation portal prototype for Jharkhand, with an AI layer for issue translation, summarization, classification, priority scoring, and duplicate detection.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Samadhan Setu — Yash Verma">
-  <meta property="og:description" content="A Smart India Hackathon project where Yash Verma built the AI layer of the system.">
+  <meta property="og:description" content="A Jharkhand civic-issue portal prototype with an AI processing pipeline and university routing.">
   <meta property="og:url" content="https://YOUR-DOMAIN.example/projects/samadhan-setu.html">
   <link rel="canonical" href="https://YOUR-DOMAIN.example/projects/samadhan-setu.html">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -50,7 +50,7 @@
     <a class="back-link" href="/projects/">Back to projects</a>
     <header class="project-header">
       <h1>Samadhan Setu</h1>
-      <p class="project-deck">A Smart India Hackathon project where I built the AI layer of the system.</p>
+      <p class="project-deck">An SIH 2026 prototype for reporting and routing civic challenges in Jharkhand. I built the AI layer that helps structure submitted issues for review and collaboration.</p>
     </header>
     <figure class="project-figure">
       <img src="/assets/samadhan-setu.png" alt="Samadhan Setu citizen portal showing a Jharkhand GIS issue map with reported environmental and civic complaints.">
@@ -59,35 +59,38 @@
     <div class="project-prose">
       <section id="overview">
         <h2>Overview</h2>
-        <p>A Smart India Hackathon project where I built the AI layer of the system.</p>
-        <p>TODO — add the system overview.</p>
+        <p>Samadhan Setu is a civic innovation portal prototype for Jharkhand. Citizens can submit and track local issues; university nodal teams and government administrators have workspaces for reviewing and managing them. The project also includes an issue map for viewing geolocated reports.</p>
+        <p>I built the AI layer, which processes new issue reports and returns structured information to the backend for persistence and downstream university routing.</p>
       </section>
       <section id="problem">
         <h2>The problem</h2>
-        <p>TODO — describe the problem this project addresses.</p>
+        <p>Community-reported issues need to be understood, categorized, prioritized, and connected with people who can investigate or work on them. The prototype aims to connect citizen reports with university and government workflows, while making issue status and location visible in the portal.</p>
       </section>
       <section id="how-it-works">
         <h2>How it works</h2>
-        <p>TODO — describe how the AI layer works.</p>
+        <p>When a citizen issue is created, the Spring Boot backend calls a separate FastAPI AI service; the browser does not call the AI service or Gemini directly. The AI pipeline handles Hindi/English language information, translation and summarization, classifies issues into one of ten domains, and produces a prototype priority result using rules.</p>
+        <p>For duplicate detection, the AI path can compare Gemini embeddings with FAISS similarity. If the external AI service is unavailable, the backend has deterministic fallback processing, including keyword-based classification, rule-based priority, and token/Jaccard comparison against candidate issues. Spring Boot then applies the analysis and performs category-based university routing.</p>
+        <p>The ten prototype domains are Education, Agriculture, Healthcare, Water Resources, Environment, Energy, Urban Development, Accessibility, Public Administration, and Rural Livelihoods.</p>
       </section>
       <section id="stack">
         <h2>Stack</h2>
-        <p>TODO — add the project stack.</p>
+        <p>React, Vite, Tailwind CSS, Leaflet, and Recharts for the frontend; Java 17, Spring Boot, Spring Data JPA, Spring Security, JWT, and MySQL for the backend; and Python, FastAPI, Gemini, and FAISS for the AI service.</p>
       </section>
       <section id="what-i-built">
         <h2>What I built</h2>
-        <p>I built the AI layer of the system.</p>
-        <p>TODO — add details about the AI layer and your contribution.</p>
+        <p>I built the AI layer as a FastAPI microservice integrated through the Spring Boot AI bridge. Its prototype processing contract covers language handling, translation, concise summaries, ten-domain classification, confidence, rule-based priority with reasons, and duplicate-match information.</p>
+        <p>I also worked on the semantic duplicate-detection path using Gemini embeddings and FAISS, with a deterministic backend comparison fallback when the external AI call is unavailable.</p>
       </section>
       <section id="challenges">
         <h2>Challenges and what I learned</h2>
-        <p>TODO — add a specific challenge and what you learned from it.</p>
+        <p>A key design concern was keeping the AI service optional for the main issue workflow. The Spring Boot backend can generate deterministic prototype results when the FastAPI/Gemini path is unavailable, while keeping persistence and API access in the backend.</p>
+        <p>This is a prototype rather than a production AI platform: priority and university routing are rule-based, and the repository notes that the full deployed issue-to-AI-to-routing flow still needs runtime verification. Fine-tuned multilingual models, production vector infrastructure, and MLOps are outside the current implementation.</p>
       </section>
       <section id="links">
         <h2>Links</h2>
         <ul class="plain-link-list">
-          <li>Repository: TODO — add a link if available.</li>
-          <li>Live site: TODO — add a link if available.</li>
+          <li><a href="https://github.com/shetty141106/Samadhana_Setu" target="_blank" rel="noreferrer">Repository</a></li>
+          <li><a href="https://samadhana-setu.onrender.com" target="_blank" rel="noreferrer">Backend API</a></li>
         </ul>
       </section>
     </div>
