@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Machine Learning Projects — Yash Verma</title>
-  <meta name="description" content="A repository of smaller machine learning projects by Yash Verma.">
+  <meta name="description" content="Three machine learning applications by Yash Verma: student score prediction, customer churn prediction, and next-word prediction.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Machine Learning Projects — Yash Verma">
-  <meta property="og:description" content="A repository of smaller machine learning projects by Yash Verma.">
+  <meta property="og:description" content="Three machine learning applications by Yash Verma: student score prediction, customer churn prediction, and next-word prediction.">
   <meta property="og:url" content="https://YOUR-DOMAIN.example/projects/machine-learning-projects.html">
   <link rel="canonical" href="https://YOUR-DOMAIN.example/projects/machine-learning-projects.html">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -50,43 +50,55 @@
     <a class="back-link" href="/projects/">Back to projects</a>
     <header class="project-header">
       <h1>Machine learning projects</h1>
-      <p class="project-deck">A repository of smaller machine learning projects.</p>
+      <p class="project-deck">Three early hands-on projects through which I learned machine learning and deep learning by building prediction applications.</p>
     </header>
     <figure class="project-figure">
-      <img src="/assets/project-placeholder.svg" alt="Placeholder graphic for the machine learning projects repository; replace with a project screenshot or diagram.">
-      <figcaption>TODO — replace this placeholder with a project screenshot or diagram.</figcaption>
+      <img src="/assets/ml-student-score-prediction.png" alt="Screenshot of the Student Exam Performance Indicator form and its predicted maths score.">
+      <figcaption>MiniProject1: Student Score Prediction.</figcaption>
+    </figure>
+    <figure class="project-figure">
+      <img src="/assets/ml-customer-churn-prediction.png" alt="Screenshot of the Customer Churn Prediction form with customer inputs and a churn probability result.">
+      <figcaption>MiniProject2: Customer Churn Prediction.</figcaption>
     </figure>
     <div class="project-prose">
       <section id="overview">
         <h2>Overview</h2>
-        <p>This is a repository of smaller machine learning projects.</p>
-        <p>TODO — add the projects in the repository.</p>
+        <p>This collection contains the first projects I built while learning machine learning and deep learning. I learned by working through three applications: a student maths-score regressor, a customer churn classifier, and an LSTM-based next-word predictor. Together, they gave me hands-on experience taking models from input preparation to an interactive application.</p>
+        <p>There are three projects in the collection; two have deployed live demos. The third is available as source code only.</p>
       </section>
       <section id="problem">
         <h2>The problem</h2>
-        <p>TODO — describe the problems addressed by the projects in this repository.</p>
+        <p>The student-score app estimates a maths exam score from student details and reading and writing scores. The churn app estimates whether a customer is likely to leave, while the next-word app predicts a continuation for a supplied word sequence.</p>
       </section>
       <section id="how-it-works">
         <h2>How it works</h2>
-        <p>TODO — describe how the projects work.</p>
+        <p>The student-score project preprocesses input features, compares regression models, saves the selected model, and applies the saved preprocessor and model at prediction time. The churn app encodes geography and gender, scales the numeric inputs, and passes them to a saved neural network to display a churn probability. The next-word app tokenizes the input, pads it to the model's expected sequence length, and returns the word with the highest predicted score.</p>
       </section>
       <section id="stack">
         <h2>Stack</h2>
-        <p>TODO — add the tools and libraries used in the projects.</p>
+        <p>Python, Flask, Streamlit, scikit-learn, pandas, NumPy, CatBoost, XGBoost, TensorFlow, and Keras. The student-score project uses Jinja2 templates; the next-word project also lists NLTK as a dependency.</p>
       </section>
       <section id="what-i-built">
         <h2>What I built</h2>
-        <p>TODO — list the projects and your contributions.</p>
+        <ul>
+          <li><strong>Student Score Prediction:</strong> built a Flask form and prediction pipeline for maths-score regression. The training code evaluates Random Forest, Decision Tree, Gradient Boosting, Linear Regression, K-Neighbors, XGBoost, CatBoost, and AdaBoost regressors.</li>
+          <li><strong>Customer Churn Prediction:</strong> built a Streamlit interface that collects customer details and displays the saved ANN model's churn probability and classification.</li>
+          <li><strong>Next Word Prediction:</strong> built a Streamlit interface around a saved LSTM model and tokenizer to predict one next word from a text sequence.</li>
+        </ul>
       </section>
       <section id="challenges">
         <h2>Challenges and what I learned</h2>
-        <p>TODO — add a specific challenge and what you learned from it.</p>
+        <p>Building these projects was my introduction to ML and DL: I learned how to prepare inputs for a model, keep the preprocessing or tokenizer artifacts needed at prediction time, and connect the trained models to interactive applications. Each project was part of learning how these concepts work in practice.</p>
       </section>
       <section id="links">
         <h2>Links</h2>
         <ul class="plain-link-list">
-          <li><a href="https://github.com/CodeSlavve/mlprojects" target="_blank" rel="noreferrer">Repository</a></li>
-          <li>Live site: none provided.</li>
+          <li><a href="https://github.com/CodeSlavve/mlprojects" target="_blank" rel="noreferrer">All mini projects repository</a></li>
+          <li><a href="https://github.com/CodeSlavve/mlprojects/tree/main/student-score-prediction-using-ML" target="_blank" rel="noreferrer">MiniProject1 — Student Score Prediction source</a></li>
+          <li><a href="https://student-score-prediction-9mmm.onrender.com/" target="_blank" rel="noreferrer">MiniProject1 — Live demo</a></li>
+          <li><a href="https://github.com/CodeSlavve/mlprojects/tree/main/customer-churn-prediction-using-ANN" target="_blank" rel="noreferrer">MiniProject2 — Customer Churn Prediction source</a></li>
+          <li><a href="https://customer-churn-prediction-9mmm.onrender.com/" target="_blank" rel="noreferrer">MiniProject2 — Live demo</a></li>
+          <li><a href="https://github.com/CodeSlavve/mlprojects/tree/main/next-word-predictor-using-LSTM" target="_blank" rel="noreferrer">MiniProject3 — Next Word Prediction source</a> (no live demo)</li>
         </ul>
       </section>
     </div>
