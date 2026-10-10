@@ -8,6 +8,11 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Yash Verma — Computer Engineering Student">
   <meta property="og:description" content="Projects, skills, and contact details for Yash Verma, a computer engineering student seeking internships.">
+  <meta property="og:image" content="https://codeslavve.github.io/assets/og-portfolio.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pixel-style Yash Verma portfolio preview, computer engineering student seeking AI/ML and software engineering internships.">
+  <meta name="twitter:card" content="summary_large_image">
   <meta property="og:url" content="https://YOUR-DOMAIN.example/">
   <link rel="canonical" href="https://YOUR-DOMAIN.example/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -27,8 +32,9 @@
     })();
   </script>
   <script src="/js/main.js" defer></script>
+  <script src="/js/pixel-effects.js" defer></script>
 </head>
-<body id="top">
+<body id="top" class="home-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
@@ -49,6 +55,7 @@
     </aside>
     <main id="main" class="page-shell">
     <section class="hero" id="home" aria-labelledby="hero-title">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <h1 id="hero-title">Yash<br class="hero-break"> Verma</h1>
       <p class="hero-copy">I’m a third-year computer engineering student building machine learning projects and software. I’m looking for AI/ML and software engineering internships.</p>
@@ -57,7 +64,7 @@
         <a class="button button-primary" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Download resume (PDF)</a>
         <a class="button button-secondary" href="#contact">Contact</a>
       </div>
-      <p class="education-note">Computer Engineering · Bharati Vidyapeeth College of Engineering · University of Mumbai</p>
+      <p class="education-note">Computer Engineering · Bharati Vidyapeeth College of Engineering<br>University of Mumbai</p>
     </section>
 
     <section class="content-section" id="projects" aria-labelledby="projects-heading">

@@ -9,7 +9,10 @@ function updateThemeButton(theme) {
   const isDark = theme === "dark";
   themeToggle.setAttribute("aria-pressed", String(isDark));
   themeToggle.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} mode`);
-  themeToggle.textContent = isDark ? "Light" : "Dark";
+  const icon = createElement("span", `theme-icon theme-icon-${isDark ? "moon" : "sun"}`);
+  icon.setAttribute("aria-hidden", "true");
+  const label = createElement("span", "theme-toggle-label", isDark ? "Light" : "Dark");
+  themeToggle.replaceChildren(icon, label);
 }
 
 updateThemeButton(root.dataset.theme);
