@@ -1219,6 +1219,14 @@ body.pixel-cursor textarea {
   min-height: 2.8rem;
 }
 
+.profile-actions .header-resume::before {
+  left: 0;
+}
+
+.profile-actions .header-resume:hover {
+  transform: translate(2px, -2px);
+}
+
 .profile-socials {
   display: flex;
   margin-top: var(--space-4);
