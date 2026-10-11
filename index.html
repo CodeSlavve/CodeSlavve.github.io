@@ -13,10 +13,10 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Pixel-style Yash Verma portfolio preview, computer engineering student seeking AI/ML and software engineering internships.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:url" content="https://YOUR-DOMAIN.example/">
-  <link rel="canonical" href="https://YOUR-DOMAIN.example/">
+  <meta property="og:url" content="https://codeslavve.github.io/">
+  <link rel="canonical" href="https://codeslavve.github.io/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=2">
   <script>
     (() => {
       let theme = null;
@@ -32,39 +32,46 @@
     })();
   </script>
   <script src="/js/main.js" defer></script>
-  <script src="/js/pixel-effects.js" defer></script>
+  <script src="/js/pixel-effects.js?v=4" defer></script>
 </head>
 <body id="top" class="home-page">
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="/" aria-label="Yash Verma, home">Yash Verma</a>
-      <div class="header-actions">
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">Dark</button>
-        <a class="button button-primary header-resume" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Resume</a>
-      </div>
-    </div>
-  </header>
-
+  <canvas class="hero-canvas page-canvas" aria-hidden="true"></canvas>
   <div class="site-layout">
-    <aside class="site-sidebar" aria-label="Page navigation">
+    <aside class="site-sidebar home-sidebar" aria-label="Profile and page navigation">
+      <section class="profile-block hero" id="home" aria-labelledby="hero-title">
+        <div class="hero-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <h1 id="hero-title">Yash<br>Verma</h1>
+        <p class="profile-role">Computer Engineering Student</p>
+        <div class="profile-copy">
+          <p>I build end-to-end machine learning applications, from data preparation and model evaluation to API development and deployment.</p>
+          <p>Explore my projects in NLP, phishing detection, and applied machine learning.</p>
+        </div>
+        <div class="profile-actions">
+          <a class="button button-primary header-resume" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Resume (PDF)</a>
+          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">Dark</button>
+        </div>
+        <nav class="profile-socials" aria-label="Social links">
+          <a href="https://github.com/CodeSlavve" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/yash-verma-304131406/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://x.com/maalikk__" target="_blank" rel="noreferrer">X</a>
+        </nav>
+      </section>
       <button class="sidebar-toggle" type="button" aria-label="Toggle page navigation" aria-expanded="false" aria-controls="sidebar-content" hidden>Navigation</button>
       <div class="sidebar-content" id="sidebar-content">
-        <noscript><nav class="noscript-sidebar" aria-label="Page sections"><a href="#home">Home</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></noscript>
+        <noscript><nav class="noscript-sidebar" aria-label="Page sections"><a href="#about">About</a><a href="#education">Education</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></noscript>
       </div>
     </aside>
     <main id="main" class="page-shell">
-    <section class="hero" id="home" aria-labelledby="hero-title">
-      <canvas class="hero-canvas" aria-hidden="true"></canvas>
-      <div class="hero-mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <h1 id="hero-title">Yash<br class="hero-break"> Verma</h1>
-      <p class="hero-copy">I’m a third-year computer engineering student building machine learning projects and software. I’m looking for AI/ML and software engineering internships.</p>
-      <div class="hero-actions">
-        <a class="button button-secondary" href="#projects">View projects</a>
-        <a class="button button-primary" href="/assets/Yash-Verma-Resume.pdf" download title="Download resume (PDF)">Download resume (PDF)</a>
-        <a class="button button-secondary" href="#contact">Contact</a>
-      </div>
-      <p class="education-note">Computer Engineering · Bharati Vidyapeeth College of Engineering<br>University of Mumbai</p>
+    <section class="content-section home-about" id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Me</h2>
+      <p>I’m a third-year computer engineering student building machine learning projects and software. I’m looking for AI/ML and software engineering internships.</p>
+    </section>
+
+    <section class="content-section home-education" id="education" aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <p><strong>B.E. in Computer Engineering</strong><br>Bharati Vidyapeeth College of Engineering, Navi Mumbai<br>University of Mumbai · 2024–2028</p>
+      <p>Semester 4 SGPA: 8.64.</p>
     </section>
 
     <section class="content-section" id="projects" aria-labelledby="projects-heading">
@@ -73,54 +80,67 @@
         <a class="quiet-link" href="/projects/">All projects</a>
       </div>
       <div class="project-list">
-        <article class="project-entry">
-          <h3><a href="/projects/cfpb-complaint-classifier.html">CFPB Complaint Classifier</a></h3>
-          <p class="project-summary">Classifies CFPB complaint narratives into eight product categories using a balanced 50,000-complaint sample.</p>
-          <p class="project-stack">Python, TF-IDF, XGBoost, FastAPI, Docker, DVC, and MLflow.</p>
-          <div class="project-links">
-            <a href="/projects/cfpb-complaint-classifier.html">Read the details</a>
-            <a href="https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier" target="_blank" rel="noreferrer">Repository</a>
-            <a href="https://codeslavve.github.io/projects/cfpb-complaint-classifier-demo.html" target="_blank" rel="noreferrer">Live Demo</a>
+        <article class="project-entry home-project-entry">
+          <img src="/assets/cfpb-complaint-classifier.png" alt="Complaint classifier demo showing an example prediction">
+          <div class="home-project-copy">
+            <h3><a href="/projects/cfpb-complaint-classifier.html">CFPB Complaint Classifier</a></h3>
+            <p class="project-summary">Classifies CFPB complaint narratives into eight product categories using a balanced 50,000-complaint sample.</p>
+            <p class="project-stack">Python, TF-IDF, XGBoost, FastAPI, Docker, DVC, and MLflow.</p>
+            <div class="project-links">
+              <a href="/projects/cfpb-complaint-classifier.html">Details</a>
+              <a href="https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier" target="_blank" rel="noreferrer">Repository</a>
+              <a href="https://codeslavve.github.io/projects/cfpb-complaint-classifier-demo.html" target="_blank" rel="noreferrer">Live demo</a>
+            </div>
+            <p class="demo-wake-note">The first prediction can take up to a minute while the Render server wakes.</p>
           </div>
         </article>
-        <article class="project-entry">
-          <h3><a href="/projects/phishing-website-detection.html">Phishing Website Detection</a></h3>
-          <p class="project-summary">Classifies a URL as legitimate or phishing using engineered URL and hostname features.</p>
-          <p class="project-stack">Python, Flask, pandas, NumPy, scikit-learn, and joblib; Random Forest, Logistic Regression, and SVM.</p>
-          <div class="project-links">
-            <a href="/projects/phishing-website-detection.html">Read the details</a>
-            <a href="https://github.com/Atharvsurya/PhishingWebsiteDetection" target="_blank" rel="noreferrer">Repository</a>
-            <a href="https://phishguard-pearl.vercel.app" target="_blank" rel="noreferrer">Live site</a>
+        <article class="project-entry home-project-entry">
+          <img src="/assets/phishing-website-detection.png" alt="Phishing URL scanner showing a sample website classification">
+          <div class="home-project-copy">
+            <h3><a href="/projects/phishing-website-detection.html">Phishing Website Detection</a></h3>
+            <p class="project-summary">Classifies a URL as legitimate or phishing using engineered URL and hostname features.</p>
+            <p class="project-stack">Python, Flask, pandas, NumPy, scikit-learn, and joblib.</p>
+            <div class="project-links">
+              <a href="/projects/phishing-website-detection.html">Details</a>
+              <a href="https://github.com/Atharvsurya/PhishingWebsiteDetection" target="_blank" rel="noreferrer">Repository</a>
+              <a href="https://phishguard-pearl.vercel.app" target="_blank" rel="noreferrer">Live site</a>
+            </div>
           </div>
         </article>
-        <article class="project-entry">
-          <h3><a href="/projects/machine-learning-projects.html">Machine learning projects</a></h3>
-          <p class="project-summary">Three first ML/DL learning projects: student maths-score regression, customer churn prediction, and next-word prediction. Two have live demos.</p>
-          <p class="project-stack">Python, Flask, Streamlit, scikit-learn, pandas, NumPy, CatBoost, XGBoost, TensorFlow, and Keras.</p>
-          <div class="project-links">
-            <a href="/projects/machine-learning-projects.html">Read the details</a>
-            <a href="https://github.com/CodeSlavve/mlprojects" target="_blank" rel="noreferrer">All mini projects repository</a>
-            <a href="https://student-score-prediction-9mmm.onrender.com/" target="_blank" rel="noreferrer">MiniProject1 live demo</a>
-            <a href="https://customer-churn-prediction-9mmm.onrender.com/" target="_blank" rel="noreferrer">MiniProject2 live demo</a>
+        <article class="project-entry home-project-entry">
+          <img src="/assets/ml-student-score-prediction.png" alt="Student maths-score prediction interface">
+          <div class="home-project-copy">
+            <h3><a href="/projects/machine-learning-projects.html">Machine Learning Projects</a></h3>
+            <p class="project-summary">Three early ML/DL learning projects: student score regression, customer churn prediction, and next-word prediction. Two have live demos.</p>
+            <p class="project-stack">Python, Flask, Streamlit, scikit-learn, pandas, NumPy, CatBoost, XGBoost, TensorFlow, and Keras.</p>
+            <div class="project-links">
+              <a href="/projects/machine-learning-projects.html">Details</a>
+              <a href="https://github.com/CodeSlavve/mlprojects" target="_blank" rel="noreferrer">Repository</a>
+              <a href="https://student-score-prediction-9mmm.onrender.com/" target="_blank" rel="noreferrer">MiniProject1 live demo</a>
+              <a href="https://customer-churn-prediction-9mmm.onrender.com/" target="_blank" rel="noreferrer">MiniProject2 live demo</a>
+            </div>
+            <p class="demo-wake-note">The first load can take up to a minute while the Render servers wake.</p>
           </div>
         </article>
-        <article class="project-entry">
-          <h3><a href="/projects/samadhan-setu.html">Samadhan Setu</a></h3>
-          <p class="project-summary">An SIH 2026 civic-issue portal prototype for Jharkhand, with an AI layer for processing and routing reports.</p>
-          <p class="project-stack">React, Spring Boot, Python, FastAPI, Gemini, and FAISS.</p>
-          <div class="project-links">
-            <a href="/projects/samadhan-setu.html">Read the details</a>
-            <a href="https://github.com/shetty141106/Samadhana_Setu" target="_blank" rel="noreferrer">Repository</a>
-            <a href="https://samadhansetu2026.vercel.app/" target="_blank" rel="noreferrer">Live site</a>
+        <article class="project-entry home-project-entry">
+          <img src="/assets/samadhan-setu.png" alt="Samadhan Setu citizen portal showing a civic issue map">
+          <div class="home-project-copy">
+            <h3><a href="/projects/samadhan-setu.html">Samadhan Setu</a></h3>
+            <p class="project-summary">An SIH 2026 civic-issue portal prototype for Jharkhand, with an AI layer for processing and routing reports.</p>
+            <p class="project-stack">React, Spring Boot, Python, FastAPI, Gemini, and FAISS.</p>
+            <div class="project-links">
+              <a href="/projects/samadhan-setu.html">Details</a>
+              <a href="https://github.com/shetty141106/Samadhana_Setu" target="_blank" rel="noreferrer">Repository</a>
+              <a href="https://samadhansetu2026.vercel.app/" target="_blank" rel="noreferrer">Live site</a>
+            </div>
           </div>
         </article>
       </div>
     </section>
 
     <section class="content-section" id="skills" aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Skills</h2>
+      <h2 id="skills-heading">Tools and skills</h2>
       <p>I work with Python, SQL, and MySQL, and build with Flask, FastAPI, and Streamlit. My machine learning toolkit includes scikit-learn, XGBoost, TensorFlow/Keras, pandas, NumPy, Matplotlib, and Seaborn. I also use Git, GitHub, Docker, DVC, Vercel, Render, and DagsHub, with a foundation in OOP, DBMS, and computer networks.</p>
-      <p class="education-detail"><strong>Education:</strong> B.E. in Computer Engineering, Bharati Vidyapeeth College of Engineering, Navi Mumbai — University of Mumbai, 2024–2028. Semester 4 SGPA: 8.64.</p>
     </section>
 
     <section class="content-section contact-section" id="contact" aria-labelledby="contact-heading">

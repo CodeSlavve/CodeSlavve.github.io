@@ -2,9 +2,17 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
   const hero = document.querySelector(".hero");
-  const canvas = document.querySelector(".hero-canvas");
+  let canvas = document.querySelector(".page-canvas") || document.querySelector(".hero-canvas");
+  if (!canvas) {
+    canvas = document.createElement("canvas");
+    canvas.className = "hero-canvas page-canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    document.body.insertBefore(canvas, document.body.children[1] || null);
+  }
+  document.body.classList.add("has-page-canvas");
+  const pageCanvas = Boolean(canvas && canvas.classList.contains("page-canvas"));
   const mark = document.querySelector(".hero-mark");
-  const drawable = hero && canvas ? canvas.getContext("2d") : null;
+  const drawable = canvas ? canvas.getContext("2d") : null;
 
   function colorToRgb(value) {
     const hex = value.trim().replace("#", "");
@@ -21,7 +29,7 @@
     ];
   }
 
-  let heroVisible = false;
+  let canvasVisible = pageCanvas;
   let pageVisible = !document.hidden;
   let animationFrame = 0;
   let lastFrame = 0;
@@ -34,10 +42,12 @@
   const touchDevice = !finePointer.matches;
 
   function resizeCanvas() {
-    if (!drawable || !hero) {
+    if (!drawable || !canvas || (!pageCanvas && !hero)) {
       return;
     }
-    const bounds = hero.getBoundingClientRect();
+    const bounds = pageCanvas
+      ? { width: window.innerWidth, height: window.innerHeight }
+      : hero.getBoundingClientRect();
     width = Math.max(1, Math.ceil(bounds.width / scale));
     height = Math.max(1, Math.ceil(bounds.height / scale));
     canvas.width = width;
@@ -72,7 +82,7 @@
         let pointerLight = 0;
         if (!reducedMotion.matches && !touchDevice && pointerCell) {
           const distance = Math.hypot(column - pointerCell.column, row - pointerCell.row);
-          pointerLight = Math.max(0, 1 - distance / 7);
+          pointerLight = Math.max(0, 1 - distance / 8);
         }
         if (!drifts && (!isPulsingCell || pulse < 0.72) && pointerLight === 0) {
           continue;
@@ -86,7 +96,7 @@
           y += Math.floor(Math.sin(phase + 1) * 2);
         }
 
-        const alpha = (drifts ? 0.045 : 0.018 + pulse * 0.025) + pointerLight * 0.12;
+        const alpha = (drifts ? 0.045 : 0.018 + pulse * 0.025) + pointerLight * 0.3;
         const color = seed < 0.6 ? accent : text;
         drawable.fillStyle = `rgba(${color.join(",")},${alpha})`;
         drawable.fillRect(x, y, cellSize, cellSize);
@@ -103,7 +113,7 @@
 
   function animate(timestamp) {
     animationFrame = 0;
-    if (!heroVisible || !pageVisible || reducedMotion.matches) {
+    if (!canvasVisible || !pageVisible || reducedMotion.matches) {
       return;
     }
     if (timestamp - lastFrame >= frameDuration) {
@@ -115,7 +125,7 @@
 
   function syncCanvasAnimation() {
     stopCanvas();
-    if (!heroVisible || !pageVisible || reducedMotion.matches) {
+    if (!canvasVisible || !pageVisible || reducedMotion.matches) {
       draw(0);
       return;
     }
@@ -123,14 +133,19 @@
     animationFrame = requestAnimationFrame(animate);
   }
 
-  if (hero && canvas && drawable) {
+  if (canvas && drawable && (pageCanvas || hero)) {
     resizeCanvas();
-    const heroObserver = new IntersectionObserver(([entry]) => {
-      heroVisible = entry.isIntersecting;
+    if (pageCanvas) {
+      window.addEventListener("resize", resizeCanvas);
       syncCanvasAnimation();
-    });
-    heroObserver.observe(hero);
-    new ResizeObserver(resizeCanvas).observe(hero);
+    } else {
+      const heroObserver = new IntersectionObserver(([entry]) => {
+        canvasVisible = entry.isIntersecting;
+        syncCanvasAnimation();
+      });
+      heroObserver.observe(hero);
+      new ResizeObserver(resizeCanvas).observe(hero);
+    }
     document.addEventListener("visibilitychange", () => {
       pageVisible = !document.hidden;
       syncCanvasAnimation();
@@ -138,14 +153,15 @@
     reducedMotion.addEventListener("change", syncCanvasAnimation);
 
     if (finePointer.matches) {
-      hero.addEventListener("pointermove", (event) => {
+      const pointerTarget = pageCanvas ? document.documentElement : hero;
+      pointerTarget.addEventListener("pointermove", (event) => {
         if (reducedMotion.matches) {
           return;
         }
         const bounds = canvas.getBoundingClientRect();
         pointerCell = {
-          column: Math.floor((event.clientX - bounds.left) / scale / cellSize),
-          row: Math.floor((event.clientY - bounds.top) / scale / cellSize)
+          column: Math.floor(((event.clientX - bounds.left) / bounds.width * width) / cellSize),
+          row: Math.floor(((event.clientY - bounds.top) / bounds.height * height) / cellSize)
         };
         if (mark) {
           const markBounds = mark.getBoundingClientRect();
@@ -155,7 +171,7 @@
           mark.style.setProperty("--mark-shift-y", `${offsetY * 2}px`);
         }
       });
-      hero.addEventListener("pointerleave", () => {
+      pointerTarget.addEventListener("pointerleave", () => {
         pointerCell = null;
         if (mark) {
           mark.style.setProperty("--mark-shift-x", "0px");
@@ -173,29 +189,12 @@
     }
   }
 
-  const dividers = document.querySelectorAll(".content-section, .project-prose section");
-  dividers.forEach((divider) => divider.classList.add("pixel-divider"));
-  if (!reducedMotion.matches && "IntersectionObserver" in window) {
-    const dividerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("pixel-revealed");
-          dividerObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    dividers.forEach((divider) => dividerObserver.observe(divider));
-  } else {
-    dividers.forEach((divider) => divider.classList.add("pixel-revealed"));
-  }
-
   const updateCursor = () => document.body.classList.toggle("pixel-cursor", !reducedMotion.matches && finePointer.matches);
   updateCursor();
   reducedMotion.addEventListener("change", updateCursor);
   finePointer.addEventListener("change", updateCursor);
   reducedMotion.addEventListener("change", () => {
     if (reducedMotion.matches) {
-      dividers.forEach((divider) => divider.classList.add("pixel-revealed"));
       if (mark) {
         mark.classList.remove("is-hovered");
         mark.style.setProperty("--mark-shift-x", "0px");

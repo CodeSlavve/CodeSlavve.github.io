@@ -1,9 +1,7 @@
 const root = document.documentElement;
 const themeToggle = document.querySelector(".theme-toggle");
-const sidebar = document.querySelector(".site-sidebar");
 const sidebarToggle = document.querySelector(".sidebar-toggle");
 const sidebarContent = document.querySelector(".sidebar-content");
-const desktopSidebar = window.matchMedia("(min-width: 901px)");
 
 function updateThemeButton(theme) {
   const isDark = theme === "dark";
@@ -45,7 +43,8 @@ const projects = [
 
 const pageSections = {
   home: [
-    { label: "Home", id: "home" },
+    { label: "About Me", id: "about" },
+    { label: "Education", id: "education" },
     { label: "Projects", id: "projects" },
     { label: "Skills", id: "skills" },
     { label: "Contact", id: "contact" }
@@ -103,52 +102,9 @@ function createElement(tag, className, text) {
   return element;
 }
 
-function createCurrentItem(label, currentType) {
-  const item = createElement("li");
-  const current = createElement("span", "sidebar-current", label);
-  current.setAttribute("aria-current", currentType);
-  item.append(current);
-  return item;
-}
-
-function createNavigationLink(label, href, className) {
-  const item = createElement("li");
-  const link = createElement("a", className, label);
-  link.href = href;
-  item.append(link);
-  return item;
-}
-
-function createProjectEntry(project) {
-  const isCurrent = currentProject && currentProject.key === project.key;
-  const isCurrentListing = pageType === "projects" && project.key === "projects";
-  const item = createElement("li");
-  item.append(isCurrent || isCurrentListing
-    ? createCurrentItem(project.label, "page").firstElementChild
-    : createElement("a", "other-page-link", project.label));
-
-  const link = item.querySelector("a");
-  if (link) {
-    link.href = project.href;
-  }
-
-  if (project.children) {
-    const childList = createElement("ul", "project-grandchildren");
-    project.children.forEach((child) => {
-      const childItem = currentProject && child.key === currentProject.key
-        ? createCurrentItem(child.label, "page")
-        : createNavigationLink(child.label, child.href, "other-page-link");
-      childList.append(childItem);
-    });
-    item.append(childList);
-  }
-  return item;
-}
-
 function renderSidebar() {
   const sectionNav = createElement("nav", "sidebar-group");
-  sectionNav.setAttribute("aria-label", "On this page");
-  sectionNav.append(createElement("h2", "sidebar-heading", "On this page"));
+  sectionNav.setAttribute("aria-label", "Page sections");
   const sectionList = createElement("ul", "sidebar-list");
   const configuredSections = pageSections[pageType];
   const existingSections = configuredSections.filter(({ id }) => document.getElementById(id));
@@ -165,47 +121,10 @@ function renderSidebar() {
   });
   sectionNav.append(sectionList);
 
-  const otherNav = createElement("nav", "sidebar-group");
-  otherNav.setAttribute("aria-label", "Other pages");
-  otherNav.append(createElement("h2", "sidebar-heading", "Other pages"));
-  const otherList = createElement("ul", "sidebar-list other-pages-list");
-
-  if (pageType !== "home") {
-    otherList.append(createNavigationLink("Home", "/", "other-page-link"));
-  }
-
-  const projectItem = createElement("li", "project-tree");
-  const projectParent = createElement("div", "project-parent");
-  const projectLink = createElement("a", "other-page-link", "Projects");
-  projectLink.href = "/projects/";
-  const childrenId = "project-page-links";
-  const projectExpanded = desktopSidebar.matches || pageType === "project" || pageType === "demo";
-  const projectDisclosure = createElement("button", "tree-toggle", projectExpanded ? "-" : "+");
-  projectDisclosure.type = "button";
-  projectDisclosure.setAttribute("aria-controls", childrenId);
-  projectDisclosure.setAttribute("aria-expanded", String(projectExpanded));
-  projectDisclosure.setAttribute("aria-label", `${projectExpanded ? "Collapse" : "Expand"} project pages`);
-  projectParent.append(projectLink, projectDisclosure);
-
-  const children = createElement("ul", "project-children");
-  children.id = childrenId;
-  children.hidden = !projectExpanded;
-  projects.forEach((project) => {
-    children.append(createProjectEntry(project));
-  });
-  projectItem.append(projectParent, children);
-  otherList.append(projectItem);
-  otherNav.append(otherList);
-
-  sidebarContent.append(sectionNav, otherNav);
-
-  projectDisclosure.addEventListener("click", () => {
-    const expanded = projectDisclosure.getAttribute("aria-expanded") === "true";
-    setProjectDisclosure(!expanded);
-  });
+  sidebarContent.append(sectionNav);
 
   sidebarContent.addEventListener("click", (event) => {
-    if (event.target instanceof Element && event.target.closest("a") && !desktopSidebar.matches) {
+    if (event.target instanceof Element && event.target.closest("a")) {
       closeMobileSidebar();
     }
   });
@@ -216,7 +135,7 @@ function renderSidebar() {
     if (!sectionElements.length) {
       return;
     }
-    const activationLine = window.innerHeight * 0.32;
+    const activationLine = window.innerHeight * 0.2;
     let activeIndex = 0;
     sectionElements.forEach((section, index) => {
       if (section.getBoundingClientRect().top <= activationLine) {
@@ -258,15 +177,6 @@ function renderSidebar() {
   updateActiveSection();
 }
 
-function setProjectDisclosure(expanded) {
-  const disclosure = sidebar.querySelector(".tree-toggle");
-  const children = sidebar.querySelector(".project-children");
-  disclosure.setAttribute("aria-expanded", String(expanded));
-  disclosure.setAttribute("aria-label", `${expanded ? "Collapse" : "Expand"} project pages`);
-  disclosure.textContent = expanded ? "-" : "+";
-  children.hidden = !expanded;
-}
-
 function setMobileSidebar(expanded) {
   sidebarToggle.setAttribute("aria-expanded", String(expanded));
   sidebarContent.classList.toggle("is-open", expanded);
@@ -282,7 +192,7 @@ function closeMobileSidebar(returnFocus = false) {
 renderSidebar();
 document.body.classList.add("sidebar-enhanced");
 sidebarToggle.hidden = false;
-setMobileSidebar(desktopSidebar.matches);
+setMobileSidebar(false);
 
 sidebarToggle.addEventListener("click", () => {
   const expanded = sidebarToggle.getAttribute("aria-expanded") === "true";
@@ -290,17 +200,7 @@ sidebarToggle.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && sidebarToggle.getAttribute("aria-expanded") === "true" && !desktopSidebar.matches) {
+  if (event.key === "Escape" && sidebarToggle.getAttribute("aria-expanded") === "true") {
     closeMobileSidebar(true);
-  }
-});
-
-desktopSidebar.addEventListener("change", (event) => {
-  if (event.matches) {
-    setMobileSidebar(true);
-    setProjectDisclosure(true);
-  } else {
-    setMobileSidebar(false);
-    setProjectDisclosure(pageType === "project" || pageType === "demo");
   }
 });
